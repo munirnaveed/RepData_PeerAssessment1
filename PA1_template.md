@@ -38,3 +38,4 @@ cleanData<-transform(loadData, date=as.Date(date))
 ```
 
 ## Are there differences in activity patterns between weekdays and weekends?
+![](PA1_template_files/figure-html/unnamed-chunk-5-1.png) 

@@ -107,3 +107,31 @@ median(tstepsperday)
 ```
 
 ## Are there differences in activity patterns between weekdays and weekends?
+```{r, echo=FALSE}
+
+
+weekpattern<-c(1:nrow(cleanData))
+for(k in 1: nrow(cleanData))
+  {
+   if(weekdays(cleanData[k, "date"])=="Saturday" |weekdays(cleanData[k, "date"])=="Sunday")
+     {
+           weekpattern[k]<-"Weekend"  
+     }
+   else
+     {
+       weekpattern[k]<-"Weekdays"
+     }
+   
+  
+  }
+
+nData<-cbind(cleanData, weekpattern)
+
+library(lattice)
+xyplot(nData$steps~nData$interval|nData$weekpattern, type="l", xlab="Intervals", ylab="Steps")
+
+
+
+
+
+```
