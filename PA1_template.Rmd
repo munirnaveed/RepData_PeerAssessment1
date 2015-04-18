@@ -7,19 +7,103 @@ output:
 
 
 ## Loading and preprocessing the data
-
-
-
+```{r}
+oloadData=read.csv("D:/Reproducible Research/repdata-data-activity/activity.csv")
+loadData<-oloadData[complete.cases(oloadData),]
+cleanData<-transform(loadData, date=as.Date(date))
+```
 ## What is mean total number of steps taken per day?
+```{r, echo=FALSE}
+uniqueDays<-unique(cleanData[, "date"])
+
+stepsperday<-c(1:length(uniqueDays))
+
+for(i in 1: length(uniqueDays))
+{
+   #cDate<-as.Date(uniqueDays[i])
+   
+   dateData<-cleanData[cleanData$date==uniqueDays[i], "steps"]
+   
+   numofsteps<-sum(dateData)
+   
+   stepsperday[i]<-numofsteps
+}
 
 
+
+hist(stepsperday, main="Histogram of steps per day")
+
+
+#mean and median of steps per day
+
+mean(stepsperday)
+median(stepsperday)
+```
 
 ## What is the average daily activity pattern?
+```{r, echo=FALSE}
+intervals<-unique(loadData[, "interval"])
+stepsperinterval<-c(1:length(intervals))
+
+for(i in 1: length(intervals))
+{
+   
+   
+   intervalData<-cleanData[cleanData$interval==intervals[i], "steps"]
+   
+   avgsteps<-mean(intervalData)
+   
+   stepsperinterval[i]<-avgsteps
+}
+
+plot(intervals, stepsperinterval, type="l")
+axis(1, at=intervals, labels=intervals)
+
+##Time internal of maximum steps
+peakat<- 835
+```
 
 
 
 ## Imputing missing values
 
 
+```{r, echo=FALSE}
+ 
+cleanrows<- nrow(cleanData)
+numrows<-nrow(oloadData)
+numofNA<-numrows - cleanrows
+
+
+ oloadData[is.na(oloadData)]<-10
+
+
+
+
+tidyData<-transform(oloadData, date=as.Date(date))
+
+tstepsperday<-c(1:length(uniqueDays))
+
+for(i in 1: length(uniqueDays))
+{
+  
+   
+   dateData<-tidyData[tidyData$date==uniqueDays[i], "steps"]
+   
+   numofsteps<-sum(dateData)
+   
+   tstepsperday[i]<-numofsteps
+}
+
+
+
+hist(tstepsperday, main="Histogram of total number steps per Day with missing data filled in")
+
+#mean and median of steps per day
+
+mean(tstepsperday)
+median(tstepsperday)
+
+```
 
 ## Are there differences in activity patterns between weekdays and weekends?
