@@ -41,7 +41,9 @@ median(stepsperday)
 ```
 
 ## What is the average daily activity pattern?
-```{r, echo=FALSE}
+
+
+```{r, echo=TRUE}
 intervals<-unique(loadData[, "interval"])
 stepsperinterval<-c(1:length(intervals))
 
@@ -56,6 +58,9 @@ for(i in 1: length(intervals))
    stepsperinterval[i]<-avgsteps
 }
 
+````
+```{r, fig.width=9, echo=FALSE }
+
 plot(intervals, stepsperinterval, type="l")
 axis(1, at=intervals, labels=intervals)
 
@@ -68,7 +73,7 @@ peakat<- 835
 ## Imputing missing values
 
 
-```{r, echo=FALSE}
+```{r, scatterplot, fig.width=9, echo=FALSE}
  
 cleanrows<- nrow(cleanData)
 numrows<-nrow(oloadData)
