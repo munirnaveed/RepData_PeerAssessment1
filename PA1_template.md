@@ -23,21 +23,6 @@ cleanData<-transform(loadData, date=as.Date(date))
 
 
 
-```r
-intervals<-unique(loadData[, "interval"])
-stepsperinterval<-c(1:length(intervals))
-
-for(i in 1: length(intervals))
-{
-   
-   
-   intervalData<-cleanData[cleanData$interval==intervals[i], "steps"]
-   
-   avgsteps<-mean(intervalData)
-   
-   stepsperinterval[i]<-avgsteps
-}
-```
 ![](PA1_template_files/figure-html/unnamed-chunk-4-1.png) 
 
 

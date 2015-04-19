@@ -43,7 +43,7 @@ median(stepsperday)
 ## What is the average daily activity pattern?
 
 
-```{r, echo=TRUE}
+```{r, echo=FALSE}
 intervals<-unique(loadData[, "interval"])
 stepsperinterval<-c(1:length(intervals))
 
